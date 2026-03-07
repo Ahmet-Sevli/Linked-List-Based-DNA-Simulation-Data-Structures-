@@ -1,0 +1,1 @@
+programda her işlemden sonra listeleri görüntülemek isterseniz yorum satırlarında bulunan işlem sonucu yazısı ve  kromozom_yazdir adlı fonksiyonu aktif hale getirebilirsiniz.
