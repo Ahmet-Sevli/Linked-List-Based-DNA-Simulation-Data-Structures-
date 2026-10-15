@@ -1,55 +1,86 @@
-# 🧬 DNA ve Kromozom İşlemleri (Bağlı Liste Uygulaması)
+# Bağlı Listeler ile DNA ve Kromozom Simülasyonu
 
-Bu proje, C++ kullanılarak geliştirilmiş ve standart şablon kütüphaneleri (STL) veya hazır veri yapıları kullanılmadan **tamamen özel bağlı liste (Linked List)** mimarisiyle tasarlanmış bir genetik algoritma simülasyonudur. Proje, metin dosyalarından okunan DNA dizilimleri üzerinde çaprazlama (crossover) ve mutasyon gibi işlemleri bellek yönetimine dikkat ederek gerçekleştirir.
+Bu proje, C++ kullanılarak standart şablon kütüphaneleri (STL) kullanılmadan, tamamen özelleştirilmiş **Bağlı Liste (Linked List)** veri yapıları ile geliştirilmiş bir DNA, Kromozom ve Gen simülasyonudur.
 
-## 🚀 Özellikler
+Proje kapsamında `Dna.txt` dosyasından okunan kromozom dizilimleri üzerinde çaprazlama (crossover) ve mutasyon gibi genetik işlemler yapılmakta ve sonuçlar dinamik olarak yönetilmektedir.
 
-- **Özel Veri Yapıları:** `std::list`, `std::vector` vb. hazır yapılar kullanılmamıştır. Düğümler (Node) arası pointer yönetimi manuel olarak sağlanmıştır.
-- **Dinamik Bellek Yönetimi:** Çöp oluşumunu (memory leak) önlemek için destructor'lar (yıkıcı metotlar) ile bellek temizliği yapılır.
-- **Çaprazlama (Crossover):** Seçilen iki kromozom ortadan bölünerek genetik materyal takası yapılır ve yeni kromozomlar popülasyona eklenir.
-- **Mutasyon:** Belirtilen satır ve sütundaki gen `X` karakteri ile mutasyona uğratılır.
-- **Toplu/Otomatik İşlem:** `Islemler.txt` dosyasındaki komut seti okunarak işlemler sırasıyla otomatik olarak uygulanır.
+## 🧬 Özellikler
 
-## 🛠️ Teknolojiler ve Araçlar
+Program, kullanıcıya interaktif bir menü sunar ve aşağıdaki işlemleri gerçekleştirir:
 
-- **Dil:** C++
-- **Derleyici:** MinGW (GCC)
-- **Derleme Aracı:** Make (Makefile)
+1. **Çaprazlama (Crossover):** 
+   - Kullanıcıdan alınan iki kromozom satır indeksi üzerinden çaprazlama yapar.
+   - İlk kromozomun sol yarısı ile ikinci kromozomun sağ yarısını birleştirir. Aynı işlemi diğer yarılar için de uygulayarak iki yeni kromozom üretir ve popülasyonun (bağlı listenin) sonuna ekler.
+2. **Mutasyon:** 
+   - Belirtilen satır (kromozom) ve sütun (gen) indeksindeki geni 'X' karakteri ile değiştirerek mutasyona uğratır.
+3. **Otomatik İşlemler:** 
+   - `Islemler.txt` dosyasındaki talimatları (Çaprazlama için 'C', Mutasyon için 'M') sırasıyla ve otomatik olarak tüm popülasyona uygular.
+4. **Ekrana Yaz:** 
+   - Popülasyondaki kromozomları belirli bir kurala göre ekrana basar: Her kromozomda sağdan sola doğru taranarak, kromozomun ilk geninden (en soldaki) alfabetik olarak daha küçük olan ilk gen ekrana yazdırılır. Eğer bulunamazsa ilk genin kendisi yazdırılır.
 
-## 📁 Proje Hiyerarşisi
+## 🛠️ Teknik Detaylar ve Kısıtlamalar
 
-Proje, düzenli bir derleme süreci için standart C++ klasör yapısına uygundur:
+* **Dil ve Derleyici:** MinGW C++ ortamında derlenmiştir.
+* **Veri Yapıları:** Hazır veri yapıları (`std::list`, `std::vector` vb.) veya C++ Şablon (Generic/Template) mimarisi **kullanılmamıştır**. Tüm bağlı liste yapıları sıfırdan implemente edilmiştir.
+* **Bellek Yönetimi:** Dinamik bellek tahsisi işlemleri (pointer'lar) titizlikle yönetilmiş olup, bellek sızıntısını (memory leak/çöp oluşumu) önlemek için gerekli yıkıcı (destructor) metotlar yazılmıştır.
+* **Mimari:** Her sınıfın `.hpp` (başlık) ve `.cpp` (kaynak) dosyaları ayrılarak Nesne Yönelimli Programlama (OOP) prensiplerine uygun tasarlanmıştır. Başlık dosyalarında metot gövdesi bulunmamaktadır.
+
+## 📁 Klasör Hiyerarşisi
+
+Proje, aşağıdaki dizin yapısına uygun olarak geliştirilmiştir:
 
 ```text
-├── bin/          # Derlenmiş çalıştırılabilir (.exe) dosya
-├── doc/          # Proje raporları ve dokümantasyon
-├── include/      # Başlık dosyaları (.hpp / .h)
-├── lib/          # Derlenmiş nesne dosyaları (.o)
-├── src/          # Kaynak kod dosyaları (.cpp)
-├── Dna.txt       # Başlangıç popülasyonunu içeren veri dosyası
-├── Islemler.txt  # Otomatik çalıştırılacak komut dosyası
-└── makefile      # Derleme kurallarını içeren dosya
+📂 Proje_Ana_Dizini
+ ┣ 📂 bin        # Çalıştırılabilir dosya (.exe) burada oluşturulur
+ ┣ 📂 doc        # Proje raporu (Odev1.pdf) vb. dokümanlar
+ ┣ 📂 include    # Sınıflara ait başlık (.hpp / .h) dosyaları
+ ┣ 📂 lib        # Derlenmiş nesne (.o) dosyaları
+ ┣ 📂 src        # Kaynak (.cpp) dosyaları
+ ┣ 📜 benioku.txt # Geliştirici notları
+ ┣ 📜 Dna.txt     # Başlangıç popülasyonunu içeren girdi dosyası
+ ┣ 📜 Islemler.txt# Otomatik işlemler için komut dosyası
+ ┗ 📜 makefile    # Proje derleme talimatları
 ```
 
-## ⚙️ Kurulum ve Çalıştırma
+## 🚀 Kurulum ve Çalıştırma
 
-Projeyi kendi bilgisayarınızda derleyip çalıştırmak için sisteminizde **MinGW** kurulu olmalı ve ortam değişkenlerine eklenmiş olmalıdır.
+Projeyi derlemek ve çalıştırmak için sisteminizde **MinGW** (ve `mingw32-make` komutu) kurulu olmalıdır.
 
-1. Repoyu klonlayın:
-   ```bash
-   git clone https://github.com/kullaniciadiniz/proje-adi.git
-   ```
-2. Proje dizinine gidin ve `make` komutunu çalıştırın:
+1. Projeyi bilgisayarınıza klonlayın veya indirin.
+2. Terminal (Komut İstemcisi) üzerinden projenin ana dizinine gidin.
+3. Aşağıdaki komutu çalıştırarak projeyi derleyin:
    ```bash
    mingw32-make
    ```
-3. Oluşan `.exe` dosyasını çalıştırın:
+   *(Eğer make sisteminiz farklı yapılandırıldıysa sadece `make` komutunu da kullanabilirsiniz.)*
+4. Derleme işlemi başarıyla tamamlandıktan sonra programı çalıştırmak için:
    ```bash
    ./bin/program.exe
    ```
+   *(Not: `program.exe` ismi makefile'ınızda belirlediğiniz çıktı ismine göre değişiklik gösterebilir.)*
 
-*(Not: Girdi dosyaları olan `Dna.txt` ve `Islemler.txt` dosyalarının ana dizinde bulunduğundan emin olun.)*
+## 📄 Girdi Dosyası Formatları
 
-## 📝 Lisans ve Kredi
+**1. Dna.txt Örneği:**
+Kromozomlar satırlar halinde, genler ise aralarında boşluk bırakılarak yazılmalıdır.
+```text
+A C F Y U D K R
+D E V U
+O L Z E R Q W X A C
+M U A D T R
+```
 
-Bu proje, Sakarya Üniversitesi Veri Yapıları dersi kapsamında bir akademik ödev olarak geliştirilmiştir. İzinsiz akademik kopyalanması tavsiye edilmez.
+**2. Islemler.txt Örneği:**
+* `C <satır1> <satır2>` : Çaprazlama işlemi
+* `M <satır> <sütun>` : Mutasyon işlemi (İndeksler 0'dan başlar)
+```text
+C 0 3
+C 0 6
+M 5 1
+```
+
+## 👤 Geliştirici
+
+Bu proje, Sakarya Üniversitesi (veya ilgili kurum) Veri Yapıları dersi ödev isterleri doğrultusunda geliştirilmiştir.
+
+* **Ad Soyad:** [Ahmet SEVLİ]
