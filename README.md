@@ -1,41 +1,55 @@
-Bu program, metin belgelerinden okunan DNA sekansları (Kromozom ve Genler) üzerinde bağlı listeler (Linked List) kullanarak çeşitli genetik işlemleri simüle eden bir C++ uygulamasıdır. Hazır veri yapıları (ArrayList, std::list vb.) ve şablon (generic) sınıflar kullanılmadan, tamamen özel bağlı liste düğümleri tasarlanarak geliştirilmiştir. 
+# 🧬 DNA ve Kromozom İşlemleri (Bağlı Liste Uygulaması)
 
+Bu proje, C++ kullanılarak geliştirilmiş ve standart şablon kütüphaneleri (STL) veya hazır veri yapıları kullanılmadan **tamamen özel bağlı liste (Linked List)** mimarisiyle tasarlanmış bir genetik algoritma simülasyonudur. Proje, metin dosyalarından okunan DNA dizilimleri üzerinde çaprazlama (crossover) ve mutasyon gibi işlemleri bellek yönetimine dikkat ederek gerçekleştirir.
 
+## 🚀 Özellikler
 
-Özellikler:
+- **Özel Veri Yapıları:** `std::list`, `std::vector` vb. hazır yapılar kullanılmamıştır. Düğümler (Node) arası pointer yönetimi manuel olarak sağlanmıştır.
+- **Dinamik Bellek Yönetimi:** Çöp oluşumunu (memory leak) önlemek için destructor'lar (yıkıcı metotlar) ile bellek temizliği yapılır.
+- **Çaprazlama (Crossover):** Seçilen iki kromozom ortadan bölünerek genetik materyal takası yapılır ve yeni kromozomlar popülasyona eklenir.
+- **Mutasyon:** Belirtilen satır ve sütundaki gen `X` karakteri ile mutasyona uğratılır.
+- **Toplu/Otomatik İşlem:** `Islemler.txt` dosyasındaki komut seti okunarak işlemler sırasıyla otomatik olarak uygulanır.
 
-1. Çaprazlama (Crossover): İki farklı kromozomun ortadan bölünerek çapraz birleştirilmesiyle yeni kromozomlar üretilir.
+## 🛠️ Teknolojiler ve Araçlar
 
-2. Mutasyon (Mutation): İstenen kromozom ve gen indeksine gidilerek ilgili gen 'X' karakterine dönüştürülür.
+- **Dil:** C++
+- **Derleyici:** MinGW (GCC)
+- **Derleme Aracı:** Make (Makefile)
 
-3. Otomatik İşlemler: "Islemler.txt" dosyasından okunan komutlar (Örn: C13, M51) sırasıyla toplu olarak işletilir.
+## 📁 Proje Hiyerarşisi
 
-4. Ekrana Yaz: Her kromozom için sağdan sola tarama yapılarak ödev föyünde belirtilen kurala uygun gen tespit edilir ve ekrana yazdırılır.
+Proje, düzenli bir derleme süreci için standart C++ klasör yapısına uygundur:
 
+```text
+├── bin/          # Derlenmiş çalıştırılabilir (.exe) dosya
+├── doc/          # Proje raporları ve dokümantasyon
+├── include/      # Başlık dosyaları (.hpp / .h)
+├── lib/          # Derlenmiş nesne dosyaları (.o)
+├── src/          # Kaynak kod dosyaları (.cpp)
+├── Dna.txt       # Başlangıç popülasyonunu içeren veri dosyası
+├── Islemler.txt  # Otomatik çalıştırılacak komut dosyası
+└── makefile      # Derleme kurallarını içeren dosya
+```
 
+## ⚙️ Kurulum ve Çalıştırma
 
-DERLEME VE ÇALIŞTIRMA (MinGW):
+Projeyi kendi bilgisayarınızda derleyip çalıştırmak için sisteminizde **MinGW** kurulu olmalı ve ortam değişkenlerine eklenmiş olmalıdır.
 
-Program, sağlanan "makefile" kullanılarak derlenmelidir. Komut satırında, ana proje dizinindeyken (makefile ile aynı dizinde) aşağıdaki komutu giriniz:
+1. Repoyu klonlayın:
+   ```bash
+   git clone https://github.com/kullaniciadiniz/proje-adi.git
+   ```
+2. Proje dizinine gidin ve `make` komutunu çalıştırın:
+   ```bash
+   mingw32-make
+   ```
+3. Oluşan `.exe` dosyasını çalıştırın:
+   ```bash
+   ./bin/program.exe
+   ```
 
+*(Not: Girdi dosyaları olan `Dna.txt` ve `Islemler.txt` dosyalarının ana dizinde bulunduğundan emin olun.)*
 
+## 📝 Lisans ve Kredi
 
-    mingw32-make
-
-
-
-Bu komut, "src" klasöründeki kaynak kodları "include" klasöründeki başlık dosyalarıyla birlikte derleyecek, nesne (.o) dosyalarını "lib" klasörüne yerleştirecek ve son olarak çalıştırılabilir dosyayı "bin" klasöründe oluşturacaktır.
-
-
-
-GEREKSİNİMLER VE GİRDİ DOSYALARI:
-
-- Programın başarıyla çalışması ve verileri okuyabilmesi için dizinde geçerli bir "Dna.txt" dosyası bulunmalıdır.
-
-- Otomatik işlemler seçeneğinin çalışabilmesi için komutların bulunduğu "Islemler.txt" dosyası gereklidir.
-
-
-
-BELLEK YÖNETİMİ:
-
-Projede dinamik olarak tahsis edilen bellek alanları (new ile oluşturulan düğümler), kromozomlar silindiğinde veya program sonlandığında yıkıcı metotlar (destructors) aracılığıyla temizlenmektedir. Herhangi bir bellek sızıntısına (memory leak / çöp oluşumuna) mahal verilmemiştir.
+Bu proje, Sakarya Üniversitesi Veri Yapıları dersi kapsamında bir akademik ödev olarak geliştirilmiştir. İzinsiz akademik kopyalanması tavsiye edilmez.
